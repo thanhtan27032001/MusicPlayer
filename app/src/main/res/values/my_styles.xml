@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="circular_50_percent">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="circular_16dp">
+        <item name="cornerSize">16dp</item>
+    </style>
+</resources>
