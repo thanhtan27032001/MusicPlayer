@@ -8,17 +8,12 @@ import com.example.musicplayer.R
 import com.example.musicplayer.controller.MainActivity
 import com.example.musicplayer.model.SongFake
 
-class SongsChartAdapter : RecyclerView.Adapter<SongsChartAdapter.MyViewHolder> {
+class SongsChartAdapter(
+    private val songsChart: ArrayList<SongFake>,
+    private val context: MainActivity
+) : RecyclerView.Adapter<SongsChartAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    }
-
-    val songsChart: Array<SongFake>
-    val context: MainActivity
-
-    constructor(songsChart: Array<SongFake>, context: MainActivity) : super() {
-        this.songsChart = songsChart
-        this.context = context
     }
 
 
@@ -29,10 +24,10 @@ class SongsChartAdapter : RecyclerView.Adapter<SongsChartAdapter.MyViewHolder> {
     }
 
     override fun getItemCount(): Int {
-        return songsChart.size
+        return 20
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
     }
 }
