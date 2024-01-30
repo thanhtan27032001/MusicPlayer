@@ -11,6 +11,7 @@ import com.example.musicplayer.model.SongFake
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSongsChart: RecyclerView
     private lateinit var songsChartAdapter: SongsChartAdapter
+    private lateinit var songsChartArray: ArrayList<SongFake>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +30,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        songsChartAdapter = SongsChartAdapter(arrayListOf<SongFake>(), this)
+        songsChartArray = arrayListOf(
+            SongFake(1, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(2, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(3, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(4, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(5, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(6, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(7, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(8, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(9, "Bài hát top 1", "Nguyễn Văn A", ""),
+            SongFake(10, "Bài hát top 1", "Nguyễn Văn A", ""),
+        )
+
+        songsChartAdapter = SongsChartAdapter(songsChartArray, this)
         rvSongsChart.adapter = songsChartAdapter
         rvSongsChart.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
