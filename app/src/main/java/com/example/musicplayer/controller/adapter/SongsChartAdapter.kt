@@ -11,6 +11,7 @@ import com.example.musicplayer.R
 import com.example.musicplayer.controller.MainActivity
 import com.example.musicplayer.model.song_chart.Song
 import com.example.musicplayer.model.song_chart.SongFake
+import com.squareup.picasso.Picasso
 
 class SongsChartAdapter(
     private val songsChart: ArrayList<Song>,
@@ -44,12 +45,13 @@ class SongsChartAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val song = songsChart[position]
-        holder.tvSongRank.text = song.rankNum
+        holder.tvSongRank.text = song.position.toString()
         holder.tvSongName.text = song.name
         holder.tvSongPerformers.text = song.performer
+        Picasso.get().load(song.thumbnail).into(holder.imgSongThumbnail)
 
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(context, "Play song rank #${song.rankNum}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Play song rank #${song.position.toString()}", Toast.LENGTH_SHORT).show()
         }
     }
 }

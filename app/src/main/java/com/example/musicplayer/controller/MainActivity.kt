@@ -13,6 +13,7 @@ import com.example.musicplayer.service.GetSongsChartApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -60,9 +61,11 @@ class MainActivity : AppCompatActivity() {
                 // set data recycler view
                 songsChartArray = resSongsChart.data!!.song
 
-                songsChartAdapter = SongsChartAdapter(songsChartArray, this@MainActivity)
-                rvSongsChart.adapter = songsChartAdapter
-                rvSongsChart.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+                withContext(Dispatchers.Main){
+                    songsChartAdapter = SongsChartAdapter(songsChartArray, this@MainActivity)
+                    rvSongsChart.adapter = songsChartAdapter
+                    rvSongsChart.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+                }
             }
             else {
                 println("Call api fail: ${response.errorBody()}")

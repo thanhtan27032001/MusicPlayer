@@ -17,26 +17,26 @@
 
         <TextView
             android:id="@+id/tvSongRank"
-            android:layout_width="30dp"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:text="1"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgSongThumbnail"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_marginStart="8dp"
             app:shapeAppearanceOverlay="@style/circular_16dp"
-            android:background="#FF0000"/>
+            android:background="#1A000000"/>
         
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="12dp"
             android:orientation="vertical"
             android:gravity="center">
             
@@ -45,13 +45,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Đây là tiêu đề dài của bài hát"
-                android:maxLines="2"/>
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/tvSongPerformers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Đây là nghệ sĩ"/>
+                android:layout_marginTop="4dp"
+                android:text="Đây là nghệ sĩ"
+                android:maxLines="1"
+                android:ellipsize="end"/>
             
         </LinearLayout>
 
