@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.MainActivity
-import com.example.musicplayer.model.SongFake
+import com.example.musicplayer.model.song_chart.SongFake
 
 class SongsChartAdapter(
     private val songsChart: ArrayList<SongFake>,

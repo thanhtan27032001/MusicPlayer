@@ -1,9 +1,9 @@
-package com.example.musicplayer.model
+package com.example.musicplayer.model.song_chart
 
 import com.google.gson.annotations.SerializedName
 
 
-data class Z6FWCOO0 (
+data class Z7WCEUF9 (
 
   @SerializedName("total_score"          ) var totalScore         : Int? = null,
   @SerializedName("total_peak_score"     ) var totalPeakScore     : Int? = null,

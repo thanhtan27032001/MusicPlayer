@@ -1,9 +1,9 @@
-package com.example.musicplayer.model
+package com.example.musicplayer.model.song_chart
 
 import com.google.gson.annotations.SerializedName
 
 
-data class ExampleJson2KtKotlin (
+data class ResponseSongsChart (
 
   @SerializedName("err"       ) var err       : Int?    = null,
   @SerializedName("msg"       ) var msg       : String? = null,

@@ -1,4 +1,4 @@
-package com.example.musicplayer.model
+package com.example.musicplayer.model.song_chart
 
 class SongFake {
     var rank: Int

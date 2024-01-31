@@ -1,4 +1,4 @@
-package com.example.musicplayer.model
+package com.example.musicplayer.model.song_chart
 
 import com.google.gson.annotations.SerializedName
 

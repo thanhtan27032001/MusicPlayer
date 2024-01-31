@@ -6,7 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.adapter.SongsChartAdapter
-import com.example.musicplayer.model.SongFake
+import com.example.musicplayer.model.song_chart.ResponseSongsChart
+import com.example.musicplayer.model.song_chart.SongFake
+import com.example.musicplayer.service.GetSongsChartApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSongsChart: RecyclerView
@@ -16,8 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // ui
         setView()
         setEvent()
+
+        // data
         setData()
     }
 
@@ -46,5 +56,25 @@ class MainActivity : AppCompatActivity() {
         songsChartAdapter = SongsChartAdapter(songsChartArray, this)
         rvSongsChart.adapter = songsChartAdapter
         rvSongsChart.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        fetchSongsChart()
+    }
+
+    private fun fetchSongsChart() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://mp3.zing.vn/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(GetSongsChartApi::class.java)
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = service.getSongsChart().execute()
+            if (response.isSuccessful) {
+                println("Call api successfully")
+            }
+            else {
+                println("Call api fail: ${response.errorBody()}")
+            }
+        }
     }
 }
