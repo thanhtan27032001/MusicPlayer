@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.adapter.SongsChartAdapter
 import com.example.musicplayer.model.song_chart.ResponseSongsChart
+import com.example.musicplayer.model.song_chart.Song
 import com.example.musicplayer.model.song_chart.SongFake
 import com.example.musicplayer.service.GetSongsChartApi
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSongsChart: RecyclerView
     private lateinit var songsChartAdapter: SongsChartAdapter
-    private lateinit var songsChartArray: ArrayList<SongFake>
+    private lateinit var songsChartArray: ArrayList<Song>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,23 +41,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        songsChartArray = arrayListOf(
-            SongFake(1, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(2, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(3, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(4, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(5, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(6, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(7, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(8, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(9, "Bài hát top 1", "Nguyễn Văn A", ""),
-            SongFake(10, "Bài hát top 1", "Nguyễn Văn A", ""),
-        )
-
-        songsChartAdapter = SongsChartAdapter(songsChartArray, this)
-        rvSongsChart.adapter = songsChartAdapter
-        rvSongsChart.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         fetchSongsChart()
     }
 
@@ -70,7 +54,15 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             val response = service.getSongsChart().execute()
             if (response.isSuccessful) {
+                val resSongsChart = response.body()
                 println("Call api successfully")
+                println(resSongsChart!!.data!!.song[0].name!!)
+                // set data recycler view
+                songsChartArray = resSongsChart.data!!.song
+
+                songsChartAdapter = SongsChartAdapter(songsChartArray, this@MainActivity)
+                rvSongsChart.adapter = songsChartAdapter
+                rvSongsChart.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             }
             else {
                 println("Call api fail: ${response.errorBody()}")

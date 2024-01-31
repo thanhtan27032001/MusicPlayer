@@ -8,6 +8,6 @@ data class ResponseSongsChart (
   @SerializedName("err"       ) var err       : Int?    = null,
   @SerializedName("msg"       ) var msg       : String? = null,
   @SerializedName("data"      ) var data      : Data?   = Data(),
-  @SerializedName("timestamp" ) var timestamp : Int?    = null
+  @SerializedName("timestamp" ) var timestamp : Long?    = null
 
 )

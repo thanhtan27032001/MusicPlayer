@@ -9,10 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.MainActivity
+import com.example.musicplayer.model.song_chart.Song
 import com.example.musicplayer.model.song_chart.SongFake
 
 class SongsChartAdapter(
-    private val songsChart: ArrayList<SongFake>,
+    private val songsChart: ArrayList<Song>,
     private val context: MainActivity
 ) : RecyclerView.Adapter<SongsChartAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,12 +44,12 @@ class SongsChartAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val song = songsChart[position]
-        holder.tvSongRank.text = song.rank.toString()
+        holder.tvSongRank.text = song.rankNum
         holder.tvSongName.text = song.name
-        holder.tvSongPerformers.text = song.performers
+        holder.tvSongPerformers.text = song.performer
 
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(context, "Play song rank #${song.rank}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Play song rank #${song.rankNum}", Toast.LENGTH_SHORT).show()
         }
     }
 }
