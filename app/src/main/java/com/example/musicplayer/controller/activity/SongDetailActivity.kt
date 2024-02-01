@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.musicplayer.R
 import com.example.musicplayer.api.SongDetailApi
+import com.example.musicplayer.model.songDetail.ResponseSongDetail
 import com.example.musicplayer.utils.MyRetrofit
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SongDetailActivity : AppCompatActivity() {
 
@@ -32,15 +33,24 @@ class SongDetailActivity : AppCompatActivity() {
 
     private fun getSongDetail(songId: String){
         val api = MyRetrofit.instance.create(SongDetailApi::class.java)
-        GlobalScope.launch {
-            val response = api.getSongDetail(key = songId).execute()
-            if (response.isSuccessful) {
-                println("Get song detail successfully")
-                println(response.body()?.msg)
+        api.getSongDetail(key = songId).enqueue(object : Callback<ResponseSongDetail>{
+            override fun onResponse(
+                call: Call<ResponseSongDetail>,
+                response: Response<ResponseSongDetail>
+            ) {
+                if (response.isSuccessful) {
+                    println("Get song detail successfully")
+                    println(response.body()?.msg)
+                }
+                else {
+                    println("Get song detail fail")
+                }
             }
-            else {
-                println("Get song detail fail")
+
+            override fun onFailure(call: Call<ResponseSongDetail>, t: Throwable) {
+                t.printStackTrace()
             }
-        }
+
+        })
     }
 }

@@ -9,11 +9,11 @@ import com.example.musicplayer.R
 import com.example.musicplayer.controller.adapter.SongsChartAdapter
 import com.example.musicplayer.model.songsChart.Song
 import com.example.musicplayer.api.SongsChartApi
+import com.example.musicplayer.model.songsChart.ResponseSongsChart
 import com.example.musicplayer.utils.MyRetrofit
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSongsChart: RecyclerView
@@ -45,25 +45,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchSongsChart() {
         val service = MyRetrofit.instance.create(SongsChartApi::class.java)
-        GlobalScope.launch() {
-            val response = service.getSongsChart().execute()
-            if (response.isSuccessful) {
-                val resSongsChart = response.body()
-                println("Call api successfully")
-                println(resSongsChart!!.data!!.song[0].name!!)
-                // set data recycler view
-                songsChartArray = resSongsChart.data!!.song
+        service.getSongsChart().enqueue(object : Callback<ResponseSongsChart> {
+            override fun onResponse(
+                call: Call<ResponseSongsChart>,
+                response: Response<ResponseSongsChart>
+            ) {
+                if (response.isSuccessful) {
+                    val resSongsChart = response.body()
+                    println("Call api successfully")
+                    println(resSongsChart!!.data!!.song[0].name!!)
+                    // set data recycler view
+                    songsChartArray = resSongsChart.data!!.song
 
-                withContext(Dispatchers.Main){
                     songsChartAdapter = SongsChartAdapter(songsChartArray, this@MainActivity)
                     rvSongsChart.adapter = songsChartAdapter
                     rvSongsChart.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
                 }
+                else {
+                    println("Call api fail: ${response.errorBody()}")
+                }
             }
-            else {
-                println("Call api fail: ${response.errorBody()}")
+
+            override fun onFailure(call: Call<ResponseSongsChart>, t: Throwable) {
+                t.printStackTrace()
             }
-        }
+
+        })
     }
 
     fun playSong(songCode: String) {
