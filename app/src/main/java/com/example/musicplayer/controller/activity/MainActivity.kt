@@ -1,4 +1,4 @@
-package com.example.musicplayer.controller
+package com.example.musicplayer.controller.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.adapter.SongsChartAdapter
-import com.example.musicplayer.model.song_chart.ResponseSongsChart
-import com.example.musicplayer.model.song_chart.Song
-import com.example.musicplayer.model.song_chart.SongFake
-import com.example.musicplayer.service.GetSongsChartApi
+import com.example.musicplayer.model.songsChart.Song
+import com.example.musicplayer.service.api.GetSongsChartApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

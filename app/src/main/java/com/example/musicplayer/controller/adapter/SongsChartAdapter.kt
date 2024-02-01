@@ -8,9 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
-import com.example.musicplayer.controller.MainActivity
-import com.example.musicplayer.model.song_chart.Song
-import com.example.musicplayer.model.song_chart.SongFake
+import com.example.musicplayer.controller.activity.MainActivity
+import com.example.musicplayer.model.songsChart.Song
 import com.squareup.picasso.Picasso
 
 class SongsChartAdapter(

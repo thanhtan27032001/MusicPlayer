@@ -1,6 +1,6 @@
-package com.example.musicplayer.service
+package com.example.musicplayer.service.api
 
-import com.example.musicplayer.model.song_chart.ResponseSongsChart
+import com.example.musicplayer.model.songsChart.ResponseSongsChart
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
