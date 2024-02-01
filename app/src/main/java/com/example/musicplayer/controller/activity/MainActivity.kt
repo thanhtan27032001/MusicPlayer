@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.R
 import com.example.musicplayer.controller.adapter.SongsChartAdapter
 import com.example.musicplayer.model.songsChart.Song
-import com.example.musicplayer.service.api.GetSongsChartApi
+import com.example.musicplayer.api.SongsChartApi
+import com.example.musicplayer.utils.MyRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvSongsChart: RecyclerView
@@ -45,12 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchSongsChart() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://mp3.zing.vn/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(GetSongsChartApi::class.java)
+        val service = MyRetrofit.instance.create(SongsChartApi::class.java)
         GlobalScope.launch(Dispatchers.IO) {
             val response = service.getSongsChart().execute()
             if (response.isSuccessful) {
@@ -72,9 +66,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun playSong() {
+    fun playSong(songCode: String) {
         val intent = Intent(this@MainActivity, SongDetailActivity::class.java)
-        intent.putExtra("", "")
+        intent.putExtra(SongDetailActivity.SONG_CODE, songCode)
         startActivity(intent)
     }
 }

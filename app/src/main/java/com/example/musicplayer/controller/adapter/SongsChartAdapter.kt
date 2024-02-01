@@ -51,7 +51,7 @@ class SongsChartAdapter(
 
         holder.btnPlay.setOnClickListener {
             Toast.makeText(context, "Play song rank #${song.position.toString()}", Toast.LENGTH_SHORT).show()
-            context.playSong()
+            context.playSong(song.code!!)
         }
     }
 }

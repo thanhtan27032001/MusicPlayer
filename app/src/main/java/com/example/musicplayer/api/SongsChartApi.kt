@@ -1,11 +1,11 @@
-package com.example.musicplayer.service.api
+package com.example.musicplayer.api
 
 import com.example.musicplayer.model.songsChart.ResponseSongsChart
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface GetSongsChartApi {
+interface SongsChartApi {
     @GET("/xhr/chart-realtime")
     fun getSongsChart(
         @Query("songId") songId: Int = 0,
