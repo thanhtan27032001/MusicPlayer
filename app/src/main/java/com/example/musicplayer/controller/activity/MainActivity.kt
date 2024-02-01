@@ -1,5 +1,6 @@
 package com.example.musicplayer.controller.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,5 +70,11 @@ class MainActivity : AppCompatActivity() {
                 println("Call api fail: ${response.errorBody()}")
             }
         }
+    }
+
+    fun playSong() {
+        val intent = Intent(this@MainActivity, SongDetailActivity::class.java)
+        intent.putExtra("", "")
+        startActivity(intent)
     }
 }
