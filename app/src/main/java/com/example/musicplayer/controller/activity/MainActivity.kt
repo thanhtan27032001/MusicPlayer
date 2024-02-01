@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchSongsChart() {
         val service = MyRetrofit.instance.create(SongsChartApi::class.java)
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch() {
             val response = service.getSongsChart().execute()
             if (response.isSuccessful) {
                 val resSongsChart = response.body()
