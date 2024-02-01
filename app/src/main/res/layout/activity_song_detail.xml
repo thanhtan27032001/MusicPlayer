@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".controller.activity.SongDetailActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.activity.SongDetailActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="324dp"
+            android:layout_height="324dp"
+            android:layout_marginTop="32dp"
+            android:src="#E91E63"
+            app:shapeAppearance="@style/circular_16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="32dp"
+            android:text="Đây là tên bài hát"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:text="Đây là tên các nghệ sĩ trình bày"
+            android:textSize="16sp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarSongPlayer"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0:00"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4:00"
+                android:textAlignment="textEnd"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="32dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/baseline_skip_previous_24"/>
+
+            <ImageView
+                android:id="@+id/btnPlay"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginHorizontal="32dp"
+                android:src="@drawable/baseline_play_circle_24"/>
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/baseline_skip_previous_24"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
