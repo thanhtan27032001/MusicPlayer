@@ -11,13 +11,10 @@ import com.example.musicplayer.R
 import com.example.musicplayer.api.SongDetailApi
 import com.example.musicplayer.model.songDetail.ResponseSongDetail
 import com.example.musicplayer.utils.MyRetrofit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.time.Duration.Companion.seconds
 
 class SongDetailActivity : AppCompatActivity() {
 
@@ -32,6 +29,9 @@ class SongDetailActivity : AppCompatActivity() {
     private lateinit var seekBarSongPlayer: SeekBar
     private lateinit var tvSongLengthCurrent: TextView
     private lateinit var tvSongLengthMax: TextView
+    private lateinit var tvSongName: TextView
+    private lateinit var tvSongPerformers: TextView
+    private lateinit var imgSongThumbnail: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +52,9 @@ class SongDetailActivity : AppCompatActivity() {
         seekBarSongPlayer = findViewById(R.id.seekBarSongPlayer)
         tvSongLengthCurrent = findViewById(R.id.tvSongLengthCurrent)
         tvSongLengthMax = findViewById(R.id.tvSongLengthMax)
+        tvSongName = findViewById(R.id.tvSongName)
+        tvSongPerformers = findViewById(R.id.tvSongPerformers)
+        imgSongThumbnail = findViewById(R.id.imgSongThumbnail)
     }
 
     private fun setEvent(){
@@ -102,6 +105,7 @@ class SongDetailActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     responseSongDetail = response.body()!!
+                    setSongDetailInfo()
                     prepareMediaPlayer()
                 }
                 else {
@@ -113,6 +117,17 @@ class SongDetailActivity : AppCompatActivity() {
                 t.printStackTrace()
             }
         })
+    }
+
+    private fun setSongDetailInfo() {
+        tvSongName.text = responseSongDetail.data?.name
+        tvSongPerformers.text = responseSongDetail.data?.performer
+        if (responseSongDetail.data?.album?.thumbnailMedium != null) {
+            Picasso.get().load(responseSongDetail.data?.album?.thumbnailMedium).into(imgSongThumbnail)
+        }
+        else {
+            Picasso.get().load(responseSongDetail.data?.album?.thumbnail).into(imgSongThumbnail)
+        }
     }
 
     private fun prepareMediaPlayer() {
@@ -130,7 +145,7 @@ class SongDetailActivity : AppCompatActivity() {
     }
 
     private fun startTrackingPlayerThread() {
-        mediaPlayingThread = Thread(Runnable {
+        mediaPlayingThread = Thread {
             while (mediaPlayer.isPlaying) {
                 try {
                     Thread.sleep(1000)
@@ -141,7 +156,7 @@ class SongDetailActivity : AppCompatActivity() {
                     seekBarSongPlayer.progress = mediaPlayer.currentPosition
                 }
             }
-        })
+        }
         mediaPlayingThread.start()
     }
 

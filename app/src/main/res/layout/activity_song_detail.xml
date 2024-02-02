@@ -19,6 +19,7 @@
             android:background="@color/white"/>
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgSongThumbnail"
             android:layout_width="324dp"
             android:layout_height="324dp"
             android:layout_marginTop="32dp"
@@ -26,6 +27,7 @@
             app:shapeAppearance="@style/circular_16dp"/>
 
         <TextView
+            android:id="@+id/tvSongName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -35,6 +37,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tvSongPerformers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
@@ -73,26 +76,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginHorizontal="32dp"
             android:gravity="center">
 
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/baseline_skip_previous_24"/>
+                android:src="@drawable/baseline_skip_previous_24"
+                android:background="@drawable/background_ripple_black"/>
 
             <ImageView
                 android:id="@+id/btnPlay"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginHorizontal="32dp"
-                android:src="@drawable/baseline_play_circle_24"/>
+                android:src="@drawable/baseline_play_circle_24"
+                android:background="@drawable/background_ripple_black"/>
 
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/baseline_skip_previous_24"/>
+                android:src="@drawable/baseline_skip_previous_24"
+                android:background="@drawable/background_ripple_black"/>
 
         </LinearLayout>
 
