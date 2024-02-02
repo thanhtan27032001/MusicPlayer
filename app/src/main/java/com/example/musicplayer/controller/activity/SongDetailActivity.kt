@@ -11,6 +11,9 @@ import com.example.musicplayer.R
 import com.example.musicplayer.api.SongDetailApi
 import com.example.musicplayer.model.songDetail.ResponseSongDetail
 import com.example.musicplayer.utils.MyRetrofit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,7 +64,7 @@ class SongDetailActivity : AppCompatActivity() {
                 if (isSeekBarTouch) {
                     mediaPlayer.seekTo(progress)
                 }
-                tvSongLengthCurrent.text = "${(progress/1000)/60}:${(progress/1000)%60}"
+                updateSongLengthCurrent(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -73,6 +76,14 @@ class SongDetailActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun updateSongLengthCurrent(progress: Int) {
+        val minute = (progress/1000)/60
+        val second = (progress/1000)%60
+        val minuteString: String = minute.toString()
+        val secondString: String = if(second > 10) second.toString() else "0$second"
+        tvSongLengthCurrent.text = "$minuteString:$secondString"
     }
 
     private fun setData(){
@@ -110,6 +121,15 @@ class SongDetailActivity : AppCompatActivity() {
         mediaPlayer.setDataSource(responseSongDetail.data?.source?.quality128)
         mediaPlayer.prepare()
 
+        startTrackingPlayerThread()
+
+        seekBarSongPlayer.progress = 0
+        seekBarSongPlayer.max = mediaPlayer.duration
+
+        tvSongLengthMax.text = "${(mediaPlayer.duration/1000)/60}:${(mediaPlayer.duration/1000)%60}"
+    }
+
+    private fun startTrackingPlayerThread() {
         mediaPlayingThread = Thread(Runnable {
             while (mediaPlayer.isPlaying) {
                 try {
@@ -122,30 +142,23 @@ class SongDetailActivity : AppCompatActivity() {
                 }
             }
         })
-
-        seekBarSongPlayer.progress = 0
-        seekBarSongPlayer.max = mediaPlayer.duration
-
-//        tvSongLengthCurrent.text = "0:00"
-        tvSongLengthMax.text = "${(mediaPlayer.duration/1000)/60}:${(mediaPlayer.duration/1000)%60}"
+        mediaPlayingThread.start()
     }
 
     private fun playSong() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
-//            mediaPlayingThread.stop()
+            mediaPlayingThread.interrupt()
         }
         else {
             mediaPlayer.start()
-            if (!mediaPlayingThread.isAlive) {
-                mediaPlayingThread.start()
-            }
+            startTrackingPlayerThread()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.stop()
-//        mediaPlayingThread.stop()
+        mediaPlayingThread.interrupt()
     }
 }
