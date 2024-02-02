@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ class SongsChartAdapter(
         val tvSongName: TextView
         val tvSongPerformers: TextView
         val btnPlay: ImageView
+        val layoutItemSongsChart: LinearLayout
 
         init {
             tvSongRank = itemView.findViewById(R.id.tvSongRank)
@@ -29,6 +31,7 @@ class SongsChartAdapter(
             tvSongName = itemView.findViewById(R.id.tvSongName)
             tvSongPerformers = itemView.findViewById(R.id.tvSongPerformers)
             btnPlay = itemView.findViewById(R.id.btnPlay)
+            layoutItemSongsChart = itemView.findViewById(R.id.layoutItemSongChart)
         }
     }
 
@@ -49,7 +52,7 @@ class SongsChartAdapter(
         holder.tvSongPerformers.text = song.performer
         Picasso.get().load(song.thumbnail).into(holder.imgSongThumbnail)
 
-        holder.btnPlay.setOnClickListener {
+        holder.layoutItemSongsChart.setOnClickListener {
             Toast.makeText(context, "Play song rank #${song.position.toString()}", Toast.LENGTH_SHORT).show()
             context.playSong(song.code!!)
         }
