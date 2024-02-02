@@ -32,6 +32,7 @@ class SongDetailActivity : AppCompatActivity() {
     private lateinit var tvSongName: TextView
     private lateinit var tvSongPerformers: TextView
     private lateinit var imgSongThumbnail: ImageView
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,7 @@ class SongDetailActivity : AppCompatActivity() {
         tvSongName = findViewById(R.id.tvSongName)
         tvSongPerformers = findViewById(R.id.tvSongPerformers)
         imgSongThumbnail = findViewById(R.id.imgSongThumbnail)
+        btnBack = findViewById(R.id.btnBack)
     }
 
     private fun setEvent(){
@@ -79,6 +81,10 @@ class SongDetailActivity : AppCompatActivity() {
             }
 
         })
+
+        btnBack.setOnClickListener {
+            this.finish()
+        }
     }
 
     private fun updateSongLengthCurrent(progress: Int) {
