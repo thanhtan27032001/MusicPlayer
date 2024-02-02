@@ -41,8 +41,13 @@ class SongDetailActivity : AppCompatActivity() {
         setView()
         setEvent()
         setData()
-
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//        // auto play song
+//        playSong()
+//    }
 
     companion object {
         const val SONG_CODE: String = "code"
@@ -148,6 +153,8 @@ class SongDetailActivity : AppCompatActivity() {
         seekBarSongPlayer.max = mediaPlayer.duration
 
         tvSongLengthMax.text = "${(mediaPlayer.duration/1000)/60}:${(mediaPlayer.duration/1000)%60}"
+
+        playSong()
     }
 
     private fun startTrackingPlayerThread() {

@@ -37,7 +37,7 @@
             android:layout_width="324dp"
             android:layout_height="324dp"
             android:layout_marginTop="32dp"
-            android:src="#E91E63"
+            android:src="#40000000"
             app:shapeAppearance="@style/circular_16dp"/>
 
         <TextView
